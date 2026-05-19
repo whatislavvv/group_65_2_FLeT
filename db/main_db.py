@@ -43,3 +43,7 @@ def update_task(task_id, new_task=None):
     conn.commit()
     conn.close()
 
+def delete_task(task_id):
+    with sqlite3.connect(path_db) as conn:
+        cursor = conn.cursor()
+        cursor.execute("DELETE FROM tasks WHERE id = ?", (task_id, ))

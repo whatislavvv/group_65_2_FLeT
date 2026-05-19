@@ -26,7 +26,20 @@ def main_page(page: ft.Page):
 
         edit_button = ft.IconButton(icon=ft.Icons.EDIT, on_click=enable_edit)
         
-        return ft.Row([task_field, edit_button, save_button])
+        
+        def delete_click(_):
+            main_db.delete_task(task_id=task_id) 
+            task_list.controls.remove(row)        
+            page.update()                         
+
+        delete_button = ft.IconButton(
+            icon=ft.Icons.DELETE, 
+            icon_color=ft.Colors.RED,
+            on_click=delete_click
+        )
+
+        row = ft.Row([task_field, edit_button, save_button, delete_button])
+        return row
 
     def add_task_flet(_):
         if task_input.value:
